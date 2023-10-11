@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Comic Story</title>
+  <style>
+    :root {
+      --image-width: 500px; /* Default width for images */
+      --image-height: auto; /* Default height for images */
+      --image-border-width: 4px; /* Border width for images */
+      --image-border-color: #fff; /* Border color for images (white) */
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3fffe330-0a41-49ed-9885-6e3aba462e70/ddxkac6-ebe2ffce-8080-4ebf-b301-598019f384b0.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNmZmZlMzMwLTBhNDEtNDllZC05ODg1LTZlM2FiYTQ2MmU3MFwvZGR4a2FjNi1lYmUyZmZjZS04MDgwLTRlYmYtYjMwMS01OTgwMTlmMzg0YjAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.axxzTibMfkRu03fwZBSQTnycdkMOj-U14iKZzrsMUhI'); /* Replace with your background image URL */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      color: #fff; /* Set text color to white */
+    }
+
+    #comic-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    img {
+      width: var(--image-width);
+      height: var(--image-height);
+      border-radius: 10px; /* Add rounded corners to images */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Add a subtle box shadow to images */
+      border: var(--image-border-width) solid var(--image-border-color); /* Add border to images */
+    }
+
+    .description {
+      margin-top: 20px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better contrast */
+      font-weight: bold;
+      overflow: hidden; /* Added this line to hide overflowed text */
+      white-space: nowrap; /* Added this line to prevent wrapping */
+      animation: typing 3s steps(30) 1s forwards; /* Added this line for typing animation */
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    .button {
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    #start-button:hover, #next-button:hover, #back-button:hover, #option1:hover, #option2:hover, #output-button:hover {
+      background-color: #005684; /* Darker shade on hover */
+    }
+
+    .presenter-text {
+      margin-top: 20px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better contrast */
+      font-weight: bold;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<audio controls loop autoplay>
+  <source src="relax-in-the-forest-background-music-for-video-9145.mp3" type="audio/mp3"> <!-- Replace with your background music URL -->
+</audio>
+
+<div id="comic-container">
+  <!-- Your comic pages go here -->
+  <!-- Page 1: Cover -->
+  <div id="page1">
+    <img src="BEYOND THE GRAY.png" alt="Cover Image">
+    <div class="presenter-text">
+      <p>Presented by Abdulla, Ghadah, Haziel, and Lemisa</p>
+    </div>
+    <div class="button-container">
+      <button id="start-button" class="button" onclick="goToPage(2)">Start</button>
+    </div>
+  </div>
+
+  <!-- Page 2: 1st Scene -->
+  <div id="page2" style="display: none;">
+    <img src="panel1.png" alt="Scene 1 Image">
+    <div class="description">
+      <p>Davo, a mid-30s office worker, is tired of the the gray walls and flickering lights sapping vibrancy from his life.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(1)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(3)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 3: 2nd Scene -->
+  <div id="page3" style="display: none;">
+    <img src="pannel2.png" alt="Scene 2 Image" style="width: 900px; height: 700;">
+    <div class="description">
+      <p>He stumbles upon an ancient map in the office belongings. The promise of a mysterious forest adventure sparks a vivid glimmer in his eyes. A beacon beyond mundane files.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(2)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(4)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 4: 3rd Scene -->
+  <div id="page4" style="display: none;">
+    <img src="pannel3.png" alt="Scene 3 Image">
+    <div class="description">
+      <p>Armed with the map, Davo steps into the greenery, feeling the crisp air and hearing the melodies of birds, the forest becoming a sanctuary for his tired soul.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(3)">Back</button>
+      <button id="next_button" class="button" onclick="goToPage(5)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 5: 4th Scene -->
+  <div id="page5" style="display: none;">
+    <img src="panel4.png" alt="Scene 4 Image">
+    <div class="description">
+      <p>Deeper in, he encounters ancient trees with stories etched in bark shyly revealing themselves</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(4)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(6)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 6: 6th Scene -->
+  <div id="page6" style="display: none;">
+    <img src="pannel5.png" alt="Scene 6 Image" style="width: 900px; height: 700;">
+    <div class="description">
+      <p>However, Davo soon confronts a treacherous ravine and dark cave. He then starts to worry about how to come back.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(5)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(7)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 7: 7th Scene -->
+  <div id="page7" style="display: none;">
+    <img src="panel6.png" alt="Scene 7 Image" style="width: 1200px; height: 1000;">
+    <div class="description">
+      <p>In the heart of the forest, Davo discovers an ancient tree; as he touches it, a surge of energy courses through him, unveiling a profound revelation about the potential within himself.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(6)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(8)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 8: 8th Scene -->
+  <div id="page8" style="display: none;">
+    <img src="panel7.png" alt="Scene 8 Image">
+    <div class="description">
+      <p>He emerges from the tree line, reinvigorated and transformed, infusing newfound passion into the once-dull office, turning the mundane into a canvas for creativity.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(7)">Back</button>
+      <button id="next-button" class="button" onclick="goToPage(9)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 9: Final Scene -->
+  <div id="page9" style="display: none;">
+    <img src="finalscene.png" alt="Final Scene Image">
+    <div class="description">
+      <p>Davo's metamorphosis inspires co-workers, turning the office into a place of growth and fulfillment, a ripple effect motivating others to escape the monotony.</p>
+    </div>
+    <div class="button-container">
+      <button id="back-button" class="button" onclick="goToPage(1)">Embrace New Adventures</button>
+  </div>
+</div>
+
+<script>
+  function goToPage(pageNumber) {
+    // Hide all pages
+    for (let i = 1; i <= 9; i++) {
+      document.getElementById(`page${i}`).style.display = 'none';
+    }
+
+    // Display the selected page
+    document.getElementById(`page${pageNumber}`).style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
